@@ -1,23 +1,14 @@
 #!/bin/bash
 
-# The files installed by the script conform to the Filesystem Hierarchy Standard:
-# https://wiki.linuxfoundation.org/lsb/fhs
+## DATA路径
+DAT_PATH='/opt/v2ray/'
 
-# The URL of the script project is:
-# https://github.com/v2fly/fhs-install-v2ray
+# 配置文件路径
+JSON_PATH='/opt/v2ray/'
 
-# The URL of the script is:
-# https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh
+UUID='cat /proc/sys/kernel/random/uuid'
 
-# If the script executes incorrectly, go to:
-# https://github.com/v2fly/fhs-install-v2ray/issues
-
-# If you modify the following variables, you also need to modify the unit file yourself:
-# You can modify it to /usr/local/lib/v2ray/
-DAT_PATH='/usr/local/share/v2ray/'
-# You can modify it to /etc/v2ray/
-JSON_PATH='/usr/local/etc/v2ray/'
-
+# 检查以root用户运行
 check_if_running_as_root() {
     # If you want to run as another user, please modify $UID to be owned by this user
     if [[ "$UID" -ne '0' ]]; then
@@ -26,6 +17,7 @@ check_if_running_as_root() {
     fi
 }
 
+# CPU架构判断
 identify_the_operating_system_and_architecture() {
     if [[ "$(uname)" == 'Linux' ]]; then
         case "$(uname -m)" in
